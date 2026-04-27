@@ -354,6 +354,60 @@
     .tab-content { display: none; animation: fadeIn 0.4s ease; }
     .tab-content.active { display: block; }
 
+    /* Master Channel Selector */
+    .channel-selector {
+      margin: 4rem 0 3rem;
+      text-align: center;
+    }
+
+    .channel-selector .selector-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--gray-dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .tabs-master {
+      display: inline-flex;
+      gap: 0.5rem;
+      padding: 0.6rem;
+      background: linear-gradient(135deg, var(--dark-2), var(--dark));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 100px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .tabs-master .tab-button {
+      padding: 1.1rem 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: -0.3px;
+    }
+
+    .tabs-master .tab-button.active {
+      background: linear-gradient(135deg, var(--red), var(--red-glow));
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 31, 31, 0.5);
+    }
+
+    .tabs-master .tab-button .channel-emoji {
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 600px) {
+      .tabs-master { flex-direction: column; width: 100%; }
+      .tabs-master .tab-button { padding: 0.9rem 1.5rem; font-size: 0.95rem; justify-content: center; }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -954,10 +1008,8 @@
     </div>
     <ul class="nav-links">
       <li><a href="#visao">Visão Geral</a></li>
-      <li><a href="#receita">Receita</a></li>
-      <li><a href="#calendarios">Calendários</a></li>
-      <li><a href="#estrategia">Estratégia</a></li>
-      <li><a href="#metas">Metas</a></li>
+      <li><a href="#canal">Selecionar Canal</a></li>
+      <li><a href="#metricas-completas">Métricas Completas</a></li>
     </ul>
   </nav>
 
@@ -994,22 +1046,33 @@
   </section>
 
   <div class="container">
-    <!-- Receita Section -->
+    <!-- Master Channel Selector -->
+    <div class="channel-selector" id="canal">
+      <span class="selector-label">▸ Selecione o canal</span>
+      <div class="tabs-master">
+        <button class="tab-button active" data-tab="paulo-channel">
+          <span class="channel-emoji">🎬</span>Paulo Vieira
+        </button>
+        <button class="tab-button" data-tab="camila-channel">
+          <span class="channel-emoji">✨</span>Camila Vieira
+        </button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ░░░░░░░░░░░░░ PAULO CHANNEL VIEW ░░░░░░░░░░░ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div id="paulo-channel" class="tab-content active">
+
+    <!-- Receita Paulo -->
     <section id="receita">
       <h2><span class="num">01</span>Performance de Receita</h2>
 
-      <div class="tabs">
-        <button class="tab-button active" data-tab="paulo">Paulo Vieira</button>
-        <button class="tab-button" data-tab="camila">Camila Vieira</button>
+      <div class="chart-container">
+        <canvas id="pauloRevenueChart"></canvas>
       </div>
 
-      <!-- Paulo Tab -->
-      <div id="paulo" class="tab-content active">
-        <div class="chart-container">
-          <canvas id="pauloRevenueChart"></canvas>
-        </div>
-
-        <div class="cards-grid">
+      <div class="cards-grid">
           <div class="card">
             <div class="card-header"><span class="emoji">📊</span><h3>Janeiro</h3></div>
             <div class="metric">
@@ -1082,98 +1145,12 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Camila Tab -->
-      <div id="camila" class="tab-content">
-        <div class="chart-container">
-          <canvas id="camilaRevenueChart"></canvas>
-        </div>
-
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-header"><span class="emoji">📊</span><h3>Janeiro</h3></div>
-            <div class="metric">
-              <div class="metric-label">Visualizações</div>
-              <div class="metric-value">332.6K</div>
-              <div class="metric-secondary">64.9 mil h • 3.500 inscritos</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Monetização (BRL @ 4,99)</div>
-              <div class="metric-value">R$5.589</div>
-              <div class="metric-secondary">$1.120 • Venda MJP R$23.964</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Receita Total</div>
-              <div class="metric-value">R$29.553</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><span class="emoji">🚀</span><h3>Fevereiro</h3></div>
-            <div class="metric">
-              <div class="metric-label">Visualizações</div>
-              <div class="metric-value">1.7M</div>
-              <div class="metric-secondary">130.6 mil h • 16.294 inscritos</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Monetização (BRL @ 4,99)</div>
-              <div class="metric-value">R$7.521</div>
-              <div class="metric-secondary">$1.507 • Venda MJP R$184.400</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Receita Total</div>
-              <div class="metric-value">R$191.921</div>
-              <div class="metric-secondary">Pico do lançamento</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><span class="emoji">📈</span><h3>Março</h3></div>
-            <div class="metric">
-              <div class="metric-label">Visualizações</div>
-              <div class="metric-value">1.3M</div>
-              <div class="metric-secondary">308.1 mil h • 15.122 inscritos</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Monetização (BRL @ 4,99)</div>
-              <div class="metric-value">R$22.467</div>
-              <div class="metric-secondary">$4.502 • Venda MJP R$27.008</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Receita Total</div>
-              <div class="metric-value">R$49.475</div>
-              <div class="metric-secondary">Período pós-CIS</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><span class="emoji">⚡</span><h3>Abril</h3></div>
-            <div class="metric">
-              <div class="metric-label">Visualizações</div>
-              <div class="metric-value">1.264.080</div>
-              <div class="metric-secondary">286.3 mil h • 13.855 inscritos</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Monetização (BRL @ 4,99)</div>
-              <div class="metric-value">R$19.034</div>
-              <div class="metric-secondary">$3.814 • Venda MJP R$59.283</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Receita Total</div>
-              <div class="metric-value">R$78.317</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </section>
 
-    <!-- Calendários Section -->
-    <section id="calendarios">
+    <!-- Calendar Paulo -->
+    <section>
       <h2><span class="num">02</span>Calendário Editorial — Maio 2026</h2>
 
-      <!-- Calendário Paulo -->
       <div class="calendar-section">
         <div class="calendar-header">
           <div class="calendar-title">
@@ -1258,7 +1235,223 @@
         </div>
       </div>
 
-      <!-- Calendário Camila -->
+      <!-- Datas de Gravação Paulo -->
+      <h3>📅 Datas de Gravação</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>06 de Maio • Sessão na Casa</h4>
+          <p>⏰ <strong>17h30 às 19h30</strong> — 2 horas dedicadas</p>
+          <p>🎯 Meta: gravar 3 a 4 conteúdos Lo-Fi</p>
+          <p>📝 Pautas: Decifre Senna, Trump, Prosperidade Judaica + 1 a definir (em alta)</p>
+        </div>
+        <div class="timeline-item">
+          <h4>15 de Maio • Dia Cheio (Podcast + Lo-Fi)</h4>
+          <p>⏰ <strong>11h</strong> — Podcast 1 (Garotti)</p>
+          <p>⏰ <strong>14h às 16h</strong> — Lo-Fi gravação (intervalo)</p>
+          <p>⏰ <strong>16h</strong> — Podcast 2 (Garotti)</p>
+          <p>⏰ <strong>18h às 19h</strong> — Lo-Fi gravação (intervalo final)</p>
+        </div>
+        <div class="timeline-item">
+          <h4>29 de Maio • Live Final</h4>
+          <p>📌 Última live da série semanal</p>
+          <p>📊 Avaliação de métricas e fechamento de mês</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategy Paulo -->
+    <section>
+      <h2><span class="num">03</span>Estratégia de Conteúdo</h2>
+
+      <h3>Pilares de Conteúdo</h3>
+      <div class="content-strategy">
+        <div class="content-type">
+          <h4>🎬 Conteúdo CIS</h4>
+          <ul>
+            <li>Vlog do método CIS (eventos)</li>
+            <li>Lives ao vivo durante eventos</li>
+            <li>Conversões de inscritos na live</li>
+            <li>Depoimentos e retrospectivas</li>
+          </ul>
+        </div>
+        <div class="content-type">
+          <h4>🎯 Lo-Fi (Decifre)</h4>
+          <ul>
+            <li>Decifrando a Mente (100K+ views)</li>
+            <li>Série Trump</li>
+            <li>Tributo Ayrton Senna</li>
+            <li>Tópicos virais em alta</li>
+          </ul>
+        </div>
+        <div class="content-type">
+          <h4>🎙️ Podcasts</h4>
+          <ul>
+            <li>Convidados mensais (in)</li>
+            <li>Paulo em outros podcasts (out)</li>
+            <li>Insights de bilionários</li>
+            <li>Formato premium</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Insights & Desafios</h3>
+      <div class="insights">
+        <div class="insight-box opportunity">
+          <h4>✓ Oportunidades</h4>
+          <ul>
+            <li>Formato Decifre comprovado (100K+)</li>
+            <li>Live gerando vendas reais</li>
+            <li>Posicionamento premium</li>
+            <li>Convidados de qualidade (Trump, Senna)</li>
+          </ul>
+        </div>
+        <div class="insight-box challenge">
+          <h4>⚠ Desafios</h4>
+          <ul>
+            <li>Datas limitadas (2x/mês)</li>
+            <li>Vlog com baixa performance</li>
+            <li>Live com ~300-350 viewers</li>
+            <li>CIS Online travou no momento da live</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPIs Paulo -->
+    <section>
+      <h2><span class="num">04</span>Metas 2026 & KPIs</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="label">Inscritos</div>
+          <div class="target">2M</div>
+          <div class="period">Final de 2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Receita Mensal</div>
+          <div class="target">R$60K+</div>
+          <div class="period">Mínimo consistente</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Vídeo Viral</div>
+          <div class="target">1x/mês</div>
+          <div class="period">200K+ views</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Conteúdo/Mês</div>
+          <div class="target">8 vídeos</div>
+          <div class="period">2 por semana</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Decifre</div>
+          <div class="target">Constante</div>
+          <div class="period">Formato 100K+</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Live Viewers</div>
+          <div class="target">5K+</div>
+          <div class="period">Antes de iniciar</div>
+        </div>
+      </div>
+    </section>
+
+    </div>
+    <!-- ════════════════════════════════════════════ -->
+
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ░░░░░░░░░░░░░ CAMILA CHANNEL VIEW ░░░░░░░░░░ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div id="camila-channel" class="tab-content">
+
+    <!-- Receita Camila -->
+    <section>
+      <h2><span class="num">01</span>Performance de Receita</h2>
+
+      <div class="chart-container">
+        <canvas id="camilaRevenueChart"></canvas>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-header"><span class="emoji">📊</span><h3>Janeiro</h3></div>
+          <div class="metric">
+            <div class="metric-label">Visualizações</div>
+            <div class="metric-value">332.6K</div>
+            <div class="metric-secondary">64.9 mil h • 3.500 inscritos</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Monetização (BRL @ 4,99)</div>
+            <div class="metric-value">R$5.589</div>
+            <div class="metric-secondary">$1.120 • Venda MJP R$23.964</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Receita Total</div>
+            <div class="metric-value">R$29.553</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="emoji">🚀</span><h3>Fevereiro</h3></div>
+          <div class="metric">
+            <div class="metric-label">Visualizações</div>
+            <div class="metric-value">1.7M</div>
+            <div class="metric-secondary">130.6 mil h • 16.294 inscritos</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Monetização (BRL @ 4,99)</div>
+            <div class="metric-value">R$7.521</div>
+            <div class="metric-secondary">$1.507 • Venda MJP R$184.400</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Receita Total</div>
+            <div class="metric-value">R$191.921</div>
+            <div class="metric-secondary">Pico do lançamento</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="emoji">📈</span><h3>Março</h3></div>
+          <div class="metric">
+            <div class="metric-label">Visualizações</div>
+            <div class="metric-value">1.3M</div>
+            <div class="metric-secondary">308.1 mil h • 15.122 inscritos</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Monetização (BRL @ 4,99)</div>
+            <div class="metric-value">R$22.467</div>
+            <div class="metric-secondary">$4.502 • Venda MJP R$27.008</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Receita Total</div>
+            <div class="metric-value">R$49.475</div>
+            <div class="metric-secondary">Período pós-CIS</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="emoji">⚡</span><h3>Abril</h3></div>
+          <div class="metric">
+            <div class="metric-label">Visualizações</div>
+            <div class="metric-value">1.264.080</div>
+            <div class="metric-secondary">286.3 mil h • 13.855 inscritos</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Monetização (BRL @ 4,99)</div>
+            <div class="metric-value">R$19.034</div>
+            <div class="metric-secondary">$3.814 • Venda MJP R$59.283</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Receita Total</div>
+            <div class="metric-value">R$78.317</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendar Camila -->
+    <section>
+      <h2><span class="num">02</span>Calendário Editorial — Maio 2026</h2>
+
       <div class="calendar-section">
         <div class="calendar-header">
           <div class="calendar-title">
@@ -1341,34 +1534,11 @@
           <div class="legend-item"><div class="legend-dot" style="background: var(--green);"></div>Sexta (Lo-Fi)</div>
         </div>
       </div>
-
-      <!-- Datas de Gravação -->
-      <h3>📅 Datas de Gravação — Paulo</h3>
-      <div class="timeline">
-        <div class="timeline-item">
-          <h4>06 de Maio • Sessão na Casa</h4>
-          <p>⏰ <strong>17h30 às 19h30</strong> — 2 horas dedicadas</p>
-          <p>🎯 Meta: gravar 3 a 4 conteúdos Lo-Fi</p>
-          <p>📝 Pautas: Decifre Senna, Trump, Prosperidade Judaica + 1 a definir (em alta)</p>
-        </div>
-        <div class="timeline-item">
-          <h4>15 de Maio • Dia Cheio (Podcast + Lo-Fi)</h4>
-          <p>⏰ <strong>11h</strong> — Podcast 1 (Garotti)</p>
-          <p>⏰ <strong>14h às 16h</strong> — Lo-Fi gravação (intervalo)</p>
-          <p>⏰ <strong>16h</strong> — Podcast 2 (Garotti)</p>
-          <p>⏰ <strong>18h às 19h</strong> — Lo-Fi gravação (intervalo final)</p>
-        </div>
-        <div class="timeline-item">
-          <h4>29 de Maio • Live Final</h4>
-          <p>📌 Última live da série semanal</p>
-          <p>📊 Avaliação de métricas e fechamento de mês</p>
-        </div>
-      </div>
     </section>
 
-    <!-- CTAs Distribution -->
+    <!-- CTAs Camila -->
     <section>
-      <h2><span class="num">03</span>Distribuição de CTAs (Camila)</h2>
+      <h2><span class="num">03</span>Distribuição de CTAs</h2>
       <p style="color: var(--gray); margin-bottom: 2rem; font-size: 1.05rem;">Esforços de venda direcionados pelos conteúdos no canal</p>
 
       <div class="cta-grid">
@@ -1393,42 +1563,11 @@
       </div>
     </section>
 
-    <!-- Estratégia -->
-    <section id="estrategia">
+    <!-- Strategy Camila -->
+    <section>
       <h2><span class="num">04</span>Estratégia de Conteúdo</h2>
 
-      <h3>Paulo Vieira • Pilares</h3>
-      <div class="content-strategy">
-        <div class="content-type">
-          <h4>🎬 Conteúdo CIS</h4>
-          <ul>
-            <li>Vlog do método CIS (eventos)</li>
-            <li>Lives ao vivo durante eventos</li>
-            <li>Conversões de inscritos na live</li>
-            <li>Depoimentos e retrospectivas</li>
-          </ul>
-        </div>
-        <div class="content-type">
-          <h4>🎯 Lo-Fi (Decifre)</h4>
-          <ul>
-            <li>Decifrando a Mente (100K+ views)</li>
-            <li>Série Trump</li>
-            <li>Tributo Ayrton Senna</li>
-            <li>Tópicos virais em alta</li>
-          </ul>
-        </div>
-        <div class="content-type">
-          <h4>🎙️ Podcasts</h4>
-          <ul>
-            <li>Convidados mensais (in)</li>
-            <li>Paulo em outros podcasts (out)</li>
-            <li>Insights de bilionários</li>
-            <li>Formato premium</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3>Camila Vieira • Pilares</h3>
+      <h3>Pilares de Conteúdo</h3>
       <div class="content-strategy">
         <div class="content-type">
           <h4>🎯 Mentoria (MJP)</h4>
@@ -1471,25 +1610,7 @@
       <h3>Insights & Desafios</h3>
       <div class="insights">
         <div class="insight-box opportunity">
-          <h4>✓ Paulo • Oportunidades</h4>
-          <ul>
-            <li>Formato Decifre comprovado (100K+)</li>
-            <li>Live gerando vendas reais</li>
-            <li>Posicionamento premium</li>
-            <li>Convidados de qualidade (Trump, Senna)</li>
-          </ul>
-        </div>
-        <div class="insight-box challenge">
-          <h4>⚠ Paulo • Desafios</h4>
-          <ul>
-            <li>Datas limitadas (2x/mês)</li>
-            <li>Vlog com baixa performance</li>
-            <li>Live com ~300-350 viewers</li>
-            <li>CIS Online travou no momento da live</li>
-          </ul>
-        </div>
-        <div class="insight-box opportunity">
-          <h4>✓ Camila • Oportunidades</h4>
+          <h4>✓ Oportunidades</h4>
           <ul>
             <li>Podplenitude viralizando</li>
             <li>MJP com vendas crescendo (R$559K)</li>
@@ -1498,7 +1619,7 @@
           </ul>
         </div>
         <div class="insight-box challenge">
-          <h4>⚠ Camila • Desafios</h4>
+          <h4>⚠ Desafios</h4>
           <ul>
             <li>Menor variedade de conteúdo</li>
             <li>Atrasos na produção de podcast</li>
@@ -1509,45 +1630,9 @@
       </div>
     </section>
 
-    <!-- Metas -->
-    <section id="metas">
+    <!-- KPIs Camila -->
+    <section>
       <h2><span class="num">05</span>Metas 2026 & KPIs</h2>
-
-      <h3>Paulo Vieira</h3>
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="label">Inscritos</div>
-          <div class="target">2M</div>
-          <div class="period">Final de 2026</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Receita Mensal</div>
-          <div class="target">R$60K+</div>
-          <div class="period">Mínimo consistente</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Vídeo Viral</div>
-          <div class="target">1x/mês</div>
-          <div class="period">200K+ views</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Conteúdo/Mês</div>
-          <div class="target">8 vídeos</div>
-          <div class="period">2 por semana</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Decifre</div>
-          <div class="target">Constante</div>
-          <div class="period">Formato 100K+</div>
-        </div>
-        <div class="kpi-card">
-          <div class="label">Live Viewers</div>
-          <div class="target">5K+</div>
-          <div class="period">Antes de iniciar</div>
-        </div>
-      </div>
-
-      <h3>Camila Vieira</h3>
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="label">Inscritos</div>
@@ -1582,8 +1667,11 @@
       </div>
     </section>
 
+    </div>
+    <!-- ════════════════════════════════════════════ -->
+
     <!-- Tabela Completa -->
-    <section>
+    <section id="metricas-completas">
       <h2><span class="num">06</span>Métricas Completas (Jan-Abr 2026)</h2>
       <div class="table-wrapper">
         <table>
@@ -1668,6 +1756,14 @@
         document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
         document.getElementById(tabName).classList.add('active');
         button.classList.add('active');
+        // Resize charts when tab becomes visible (Chart.js needs this for hidden canvases)
+        setTimeout(() => {
+          if (window.Chart && Chart.instances) {
+            Object.values(Chart.instances).forEach(chart => chart.resize());
+          }
+        }, 50);
+        // Smooth scroll to top of channel content
+        window.scrollTo({ top: document.querySelector('.channel-selector').offsetTop - 80, behavior: 'smooth' });
       });
     });
 
